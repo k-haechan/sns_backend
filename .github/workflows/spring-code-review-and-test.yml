@@ -1,0 +1,44 @@
+name: Spring Code Review and Test Generation
+on:
+  pull_request:
+    types: [opened, synchronize]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  review-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run LlamaPPreview for Code Review
+        uses: llamapreview/llamapreview@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          mode: code-review
+          language: java
+          comment_language: ko
+          review_criteria: |
+            - Bugs: Check for potential errors in Java Spring code.
+            - Performance: Identify inefficient patterns (e.g., database queries, loops).
+            - Readability: Suggest improvements for variable names, structure, and comments.
+            - Security: Detect vulnerabilities (e.g., SQL injection, hardcoded secrets).
+      - name: Run LlamaPPreview for Test Generation
+        uses: llamapreview/llamapreview@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          mode: test-generation
+          language: java
+          framework: junit5
+          comment_language: ko
+          output: src/test/java
+          test_criteria: |
+            - Include normal cases, edge cases, and exception handling.
+            - Add comments in Korean.
+            - Follow Spring Boot testing conventions (e.g., @SpringBootTest, MockBean).
+      - name: Commit generated tests
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: "Add auto-generated JUnit test files"
+          directory: src/test/java
