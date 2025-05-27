@@ -18,7 +18,7 @@ public enum ErrorCode {
 	// 회원가입 실패
 	MEMBER_JOIN_FAILED(HttpStatus.CONFLICT, "MEMBER_JOIN_FAILED", "회원가입에 실패했습니다. 이미 가입된 회원정보가 존재합니다."),
 	DUPLICATE_EMAIL(HttpStatus.CONFLICT, "DUPLICATE_EMAIL", "이미 가입된 이메일입니다."),
-	DUPLICATE_USERNAME(HttpStatus.CONFLICT, "DUPLICATE_USERNAME", "이미 가입된 아이디입니다."),
+	DUPLICATE_USERNAME(HttpStatus.CONFLICT, "DUPLICATE_USERNAME", "이미 가입된 사용자명입니다."),
 	DUPLICATE_PHONE(HttpStatus.CONFLICT, "DUPLICATE_PHONE", "이미 가입된 전화번호입니다.");
 
 	private final HttpStatus status;
