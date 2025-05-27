@@ -27,6 +27,8 @@ public class Image {
 
 	private String path; // 이미지 경로
 
+	private Integer index; // 이미지 순서
+
 	public Image(Post post, String path) {
 		this.post = post;
 		this.path = path;
