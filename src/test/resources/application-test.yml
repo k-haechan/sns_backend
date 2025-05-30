@@ -39,3 +39,11 @@ custom:
   frontend:
     urls:
       -http://localhost:3000
+
+  jwt:
+    access-token:
+      secret: access_token_secret_test_test_test
+      expiration-time: 30m # 30min
+    refresh-token:
+      secret: refresh_token_secret_test_test_test
+      expiration-time: 30d # 30days
