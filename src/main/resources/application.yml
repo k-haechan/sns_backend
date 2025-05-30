@@ -43,5 +43,10 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.springframework.web: DEBUG
-    com.mysite.sns: DEBUG
+    com.mysite.sns_backend: DEBUG
+
+custom:
+  frontend:
+    urls:
+      -${FRONTEND_URL}
 

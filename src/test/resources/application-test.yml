@@ -34,3 +34,8 @@ logging:
     root: WARN
     org.hibernate.SQL: OFF
     org.hibernate.orm.jdbc.bind: OFF
+
+custom:
+  frontend:
+    urls:
+      -http://localhost:3000
