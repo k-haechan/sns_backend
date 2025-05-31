@@ -1,5 +1,11 @@
 package com.mysite.sns_backend.domain.member.enums;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import lombok.Getter;
 
 @Getter
@@ -13,5 +19,9 @@ public enum Role {
 	Role(String key, String title) {
 		this.key = key;
 		this.title = title;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(this.key));
 	}
 }
