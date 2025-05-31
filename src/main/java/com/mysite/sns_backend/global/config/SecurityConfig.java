@@ -45,12 +45,6 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.csrf(csrf -> csrf.disable()) // REST
-			// 인증 및 권한 설정
-			.authorizeHttpRequests(
-				authorize -> authorize
-					.requestMatchers(POST, "/api/v1/members").permitAll()
-					.anyRequest().permitAll()
 			// ✅ 보안 관련 설정 (CSRF, CORS, 세션)
 			.csrf(AbstractHttpConfigurer::disable) // CSRF 비활성화 (JWT 사용 시 불필요)
 			.cors(cors -> corsConfigurationSource()) // CORS 설정 적용
@@ -67,6 +61,7 @@ public class SecurityConfig {
 				// MEMBER Domain
 				.requestMatchers(POST,"/api/v1/members").permitAll()
 				.requestMatchers(POST, "/api/v1/auth/login").permitAll()
+				.requestMatchers(POST, "/api/v1/auth/refresh").permitAll()
 				.requestMatchers(OPTIONS, "/**").permitAll()
 				.requestMatchers("/error").permitAll()
 				.anyRequest().authenticated() // 나머지 요청은 인증 필요
