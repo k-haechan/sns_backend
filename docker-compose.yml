@@ -24,9 +24,48 @@ services:
       timeout: 5s
       retries: 5
       start_period: 20s
+  redis:
+    image: redis:7.2
+    container_name: redis-container
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    networks:
+      - backend-network
+    restart: always
+    volumes:
+      - redis-data:/data
+    command: [ "redis-server", "--requirepass", "${REDIS_PASSWORD}" ]
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping" ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  test-redis:
+    image: redis:7.2
+    container_name: test-redis-container
+    ports:
+      - "63790:6379"
+    networks:
+      - backend-network
+    restart: always
+    volumes:
+      - test-redis-data:/data
+    command: [ "redis-server"]
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping" ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 volumes:
   mysql-data:
+    driver: local
+  redis-data:
+    driver: local
+  test-redis-data:
     driver: local
 
 networks:

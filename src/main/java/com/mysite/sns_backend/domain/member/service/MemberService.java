@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mysite.sns_backend.domain.member.dto.join.JoinRequest;
+import com.mysite.sns_backend.domain.member.entity.Member;
 import com.mysite.sns_backend.domain.member.repository.MemberRepository;
 import com.mysite.sns_backend.global.exception.CustomException;
 import com.mysite.sns_backend.global.exception.code.ErrorCode;
@@ -39,5 +40,10 @@ public class MemberService {
 				ErrorCode.MEMBER_JOIN_FAILED
 			);
 		}
+	}
+
+	public Member findByUsername(String username) {
+		return memberRepository.findByUsername(username)
+			.orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 	}
 }

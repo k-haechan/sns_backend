@@ -1,10 +1,12 @@
 package com.mysite.sns_backend.domain.member.entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
 
 import com.mysite.sns_backend.domain.member.enums.Role;
 
@@ -71,5 +73,9 @@ public class Member {
 		this.email = email;
 		this.phone = phone;
 		this.role = role;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return role.getAuthorities();
 	}
 }

@@ -1,5 +1,7 @@
 package com.mysite.sns_backend.domain.member.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.mysite.sns_backend.domain.member.entity.Member;
@@ -10,4 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	boolean existsByUsername(String username);
 
 	boolean existsByPhone(String phone);
+
+	Optional<Member> findByUsername(String username);
 }
