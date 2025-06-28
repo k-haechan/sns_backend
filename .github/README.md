@@ -4,9 +4,7 @@
 
 | 이름 | 설명 |
 |------|------|
-| `SONAR_TOKEN` | SonarCloud 분석 토큰 |
 | `SLACK_WEBHOOK_URL` | 슬랙 알림용 Webhook 주소 (PR 알림) |
-| `SLACK_PUSH_WEBHOOK_URL` | 슬랙 알림용 Webhook 주소 (Push 알림) |
 | `AWS_ACCOUNT_ID` | AWS 계정 ID (OIDC 인증용) |
 | `ENV_FILE` | 애플리케이션 환경변수 파일 내용 |
 
