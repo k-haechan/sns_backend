@@ -33,13 +33,5 @@ jobs:
       - name: Run build and tests
         run: ./gradlew clean build jacocoTestReport
 
-      - name: SonarQube Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonarqube \
-          -Dsonar.projectKey=your_project_key \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN
-
       - name: CodeQL Analysis
         uses: github/codeql-action/analyze@v2
