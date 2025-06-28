@@ -35,3 +35,18 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### AWS Infrastructure Files
+/aws_infra/environments/dev/create_free_tier_arch/.terraform.lock.hcl
+/aws_infra/environments/dev/create_free_tier_arch/keygroup/cloudfront_key.pem
+/aws_infra/environments/dev/create_free_tier_arch/keygroup/cloudfront_public.pem
+/aws_infra/environments/dev/create_free_tier_arch/generate_secrets.sh
+/aws_infra/environments/dev/create_free_tier_arch/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/darwin_arm64/LICENSE.txt
+/aws_infra/environments/dev/create_free_tier_arch/locals.tf
+/aws_infra/environments/dev/create_free_tier_arch/main.tf
+/aws_infra/environments/dev/create_free_tier_arch/.terraform/modules/modules.json
+/aws_infra/environments/dev/create_free_tier_arch/outputs.tf
+/aws_infra/environments/dev/create_free_tier_arch/terraform.tfvars
+/aws_infra/environments/dev/create_free_tier_arch/terraform.tfvars.example
+/aws_infra/environments/dev/create_free_tier_arch/.terraform/providers/registry.terraform.io/hashicorp/aws/5.100.0/darwin_arm64/terraform-provider-aws_v5.100.0_x5
+/aws_infra/environments/dev/create_free_tier_arch/variables.tf
