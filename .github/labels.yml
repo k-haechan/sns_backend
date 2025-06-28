@@ -1,0 +1,11 @@
+- name: major
+  color: FF0000
+  description: Major version bump
+
+- name: minor
+  color: 84b6eb
+  description: Minor version bump
+
+- name: patch
+  color: 0075ca
+  description: Patch version bump

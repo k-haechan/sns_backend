@@ -1,0 +1,45 @@
+name: main 브랜치 PR 검증
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run build and tests
+        run: ./gradlew clean build jacocoTestReport
+
+      - name: SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonarqube \
+          -Dsonar.projectKey=your_project_key \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=$SONAR_TOKEN
+
+      - name: CodeQL Analysis
+        uses: github/codeql-action/analyze@v2

@@ -1,0 +1,46 @@
+name: dev 브랜치 PR 검증
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches: [ dev ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run build and tests
+        run: ./gradlew clean build jacocoTestReport
+
+      - name: Send Slack notification
+        if: always()
+        uses: slackapi/slack-github-action@v2
+        with:
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "text": "✅ *Dev PR Workflow 결과: `${{ job.status }}`*\n*PR 제목*: ${{ github.event.pull_request.title }}\n*작성자*: ${{ github.actor }}\n*리포지토리*: ${{ github.repository }}\n➡️ <${{ github.event.pull_request.html_url }}|PR 보기>"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

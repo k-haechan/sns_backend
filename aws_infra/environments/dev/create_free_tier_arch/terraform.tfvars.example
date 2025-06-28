@@ -1,0 +1,28 @@
+# AWS 리전
+region            = "ap-northeast-2"
+
+# 프로젝트 정보 (서브도메인 구성에 사용)
+project           = "your-project"        # 예: "myapp", "dev-api", "prod-web"
+domain_name       = "your-domain.com"     # 예: "example.com", "mycompany.com"
+
+# EC2 설정
+ec2_ami           = "ami-xxxxxxxxxxxxxxxxx"
+ec2_instance_type = "t3.micro"
+
+# RDS 설정
+rds_instance_class = "db.t3.micro"
+db_name           = "yourdbname"
+db_username       = "your-db-user"
+db_password       = "your-db-password"
+
+# CloudFront 서명된 쿠키용 공개키 (generate_secrets.sh로 자동 생성)
+public_key = <<EOF
+-----BEGIN PUBLIC KEY-----
+YOUR PUBLIC KEY HERE
+-----END PUBLIC KEY-----
+EOF
+
+# 생성되는 도메인 구조:
+# - 호스팅 존: your-project.your-domain.com
+# - API 서버: api.your-project.your-domain.com  
+# - CDN: static.your-project.your-domain.com
