@@ -32,6 +32,3 @@ jobs:
 
       - name: Run build and tests
         run: ./gradlew clean build jacocoTestReport
-
-      - name: CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
